@@ -1,0 +1,29 @@
+1. How to push the docker image into the docker container registry?
+1.1 login into the docker hub http://hub.docker.com
+1.2 navigate to repositories from the menu and click on create repository 
+1.3 for eg.. ubuntujdk11, while creating the repository choose the type of repository as private/public, right now leave to public
+1.4 upon creating an repository the repository will be prefixed with USERID of the dockerhub account holder
+for eg.. in our case here it is techsriman/ubuntujdk11
+1.5. A repository represents or holds only one image but can have multiple tags of it
+1.6 goto the dockerhost and login to the docker hub using
+docker login
+enter docker hub account username/userid and password and login
+1.7 create an directory like ubuntujdk11 (mkdir ubuntujdk11)
+1.8 cd ubuntujdk11 and create an Dockerfile inside it
+Dockerfile
+-----------
+FROM ubuntu:23.04
+RUN apt update -y
+RUN apt install -y openjdk-11-jdk
+
+
+1.9 run the below command to build the docker image
+docker image build -t techsriman/ubuntujdk11:1.0 .
+                      dockerhubuserid/repositoryName:tag
+											
+In order to push the image into docker hub registry, the image should be tagged or named using the below format
+dockerhubuserid/repositoryName:tag
+
+1.10 upon building the image we can push the image into docker hub registry using
+docker image push dockerhubuserid/repositoryName:tag
+

@@ -1,0 +1,77 @@
+docker image management commands
+---------------------------------
+1. How to see all the docker images on the docker host?
+docker image ls
+
+2. How to see the details of the image?
+details of the image means Author/Maintainer, Licensing, created date, supported platforms, Size, Image Instruction to launch the container etc
+docker image inspect image:tag
+
+when an author is publishing an image into the docker container registry, for each image to identify its version a tag will be attached to it. The tag can be alpha nuemaric, so it need not only contains numbers. For every image that is published there will a default tag associated for the image called "latest" which always points to the last published image.
+So when we are building and publishing an image, we need to associate the image along with tag, latest tag as well
+for eg.. if we are publishing an tomcat docker image of 9.0 version then we need to tag tomcat:9.0 with latest tag as well so that we can access tomcat:9.0 with tomcat:latest
+
+whenever we are publishing a newer verion of the tomcat image for example tomcat:10.0 again we need to retag tomcat:10.0 with tomcat:latest removing latest from 9.0. 
+In such a way always the latest will points to the recent version of the image.
+	
+3. How to retag / add an alias name to an docker image?
+For e.g.. we have an docker image with name tomcat:11.0  we want to bind one more name for the same image as tomcat:11_linux, there after we can access the same image with #2 names
+
+docker image tag exitingimage:tag newimage:newtag
+
+4. How to remove an docker image?
+removing an docker image means we are removing the docker image from docker host, not from docker registry
+docker image rm image:tag
+
+when we run the above command, if there is an existing container ontop of the image, then it produces an error stating removing the container before removing the image.
+if the image:tag we are referring is an tag/alias, then it only removes the alias will not remove the image
+
+	
+5. how to remove an image, when there is an container associated with it?
+docker image rm -f image:tag
+-f stands for force along with image, remove the container as well
+
+6. How to remove all the unused images on the docker host?
+we want to remove all the images that are not having any containers created on top of them which can be done using
+docker image prune
+
+7. How to export an existing docker image on a docker host?
+docker image save image:tag -o filename.tar
+
+the save exports the docker image into the -o output filename we specified.
+	
+8. how to load an docker image from an existing .tar (docker image file)?
+docker image load -i filename.tar
+
+-i = stands for input
+
+9. how to pull an image from docker container registry onto a docker host?
+docker image pull image:tag
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	

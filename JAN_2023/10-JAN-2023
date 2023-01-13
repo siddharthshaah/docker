@@ -1,0 +1,110 @@
+Docker CLI
+Container Management Commands
+Let us try to understand how to launch the docker containers and manage them using the DockerCLI commands.
+
+To run an docker container we need an docker image, there are lot of published images are available aspart of the dockerhub we can make use of the exiting images in creating and running the containers let us explore
+
+1. How to run an docker container interactively?
+docker container run -it image:tag command
+
+upon running the above command, the docker daemon checks for whether the docker image we specified is available on the dockerhost or not, if not downloads/pulls the image from dockerhub registry caches it locally on the dockerhost and creates an container out of the image and runs the container program and terminates upon completion
+
+once the image is available under the docker host cache, the docker engine can create any number of containers ontop of the same image since docker images are read-only
+
+when we pass -it switch it stands for interactive execution of the container, so the docker engine upon launching the container it executes the command we supplied interactively allowing the user to access the program/container
+
+by default when we launch a docker container out of an image, the default instruction that is packaged aspart of the docker image will be used in lauching or running a container
+docker container run image:tag
+
+but if we want to run an docker container with our own instruction interactively while lauching the container instead of default image instruction then we need to use
+docker container run -it image:tag command
+
+2. how to see all the running containers on the docker host?
+docker container ls
+
+CONTAINER ID   IMAGE           COMMAND              CREATED              STATUS                      PORTS     NAMES
+105404df8dfc   ubuntu:23.04   "/bin/bash"           About a minute ago   Exited (0) 56 seconds ago             magical_northcutt
+
+The docker cli displays the output in a tabular fashion
+1. CONTAINER ID = for each container docker engine creates it assigns an unique id using which we can manage the container
+2. IMAGE = name:tag using which the docker container has been created
+3. COMMAND = the command used for lauching the container
+4. CREATED = the elasped time when container has been created
+5. STATUS = current status of the container
+6. PORTS = ports exposed by the container program
+7. NAMES = for each docker container, while launching the docker engine assigns an random name so that we can refer the container either using id or using friendly name. 
+	
+The docker container ls command only shows the current running containers on the dockerhost only
+
+3. how to see all the docker containers of any status on the docker host?
+docker container ls -a 
+-a = stands for all the containers on the docker host
+upon completing the execution of the docker container, docker daemon will not removes the container on the host, because the programmers may want to collect execution information about the container by reading the logs so the container will be left on the host
+
+4. how to remove an docker container?
+when the docker container is under execution we cannot remove the container, it should be stopped first to remove the container. we can remove an exited/terminated container using the below command
+
+docker container rm containerID/name
+
+5. how to remove all the terminated containers on the host?
+docker container prune
+will remove all the containers which are stopped or exited
+
+6. How to stop the running container?
+docker container stop CONTAINERID/CONTAINERNAME
+	
+7. How to forcible stop and remove an running container?
+docker container rm -f CONTAINERID/CONTAINERNAME
+	
+
+8. we can see all the running containers on the dockerhost using
+docker container ps
+or
+docker ps
+
+9. How to run a docker container as a daemon?
+There are software programs that are deployed on servers/platforms/infra/runtimes and executes for longer time, until we terminate.  If we launch such packaged programs as docker containers interactively, they block the TTY of the host machine even though we dont have to pass any interactive inputs to the container program. and when we close the TTY or exit from it the container would be terminated.
+	
+To ensure we dont block the TTY and continue to run the container in background, we can lauch te container as a daemon container non-interactively using the below command
+
+docker container run -d image:tag
+docker container run -d tomcat:9.0
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
